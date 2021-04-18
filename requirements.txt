@@ -1,2 +1,5 @@
 numpy
 pandas
+stop_words
+re
+nltk
