@@ -31,7 +31,7 @@ def gather_20newsgroups_data():
                     if isfile(dir_path + filename)]
             files.sort()
             for filename, filepath in files:
-                with open(filepath,'r') as f:
+                with open(filepath, errors= 'ignore') as f:
                     text = f.read().lower()
                     # remove stop words
                     # \W+ stands for non-word characters 
