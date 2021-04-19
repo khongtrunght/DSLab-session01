@@ -1,5 +1,4 @@
 numpy
 pandas
-stop_words
-re
+stop-words
 nltk
