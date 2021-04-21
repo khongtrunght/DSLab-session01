@@ -4,6 +4,7 @@ import os
 from os import listdir
 from os.path import isfile
 import re
+import platform
 
 def gather_20newsgroups_data():
     dirname = os.path.dirname(__file__)
@@ -30,18 +31,33 @@ def gather_20newsgroups_data():
                     for filename in listdir(dir_path)
                     if isfile(dir_path + filename)]
             files.sort()
-            for filename, filepath in files:
-                with open(filepath,'r') as f:
-                    text = f.read().lower()
-                    # remove stop words
-                    # \W+ stands for non-word characters 
-                    words = [stemmer.stem(word) for word in re.split('\W+',text)
-                                if word not in stop_words]
-                    # combine remaining words in to string
-                    content = ' '.join(words)
-                    assert len(content.splitlines()) == 1
-                    data.append(str(label) +'<fff>' +
-                            filename + '<fff>' + content)
+            if platform.system() == 'Windows':
+                for filename, filepath in files:
+                    with open(filepath,'r') as f:
+                        text = f.read().lower()
+                        # remove stop words
+                        # \W+ stands for non-word characters 
+                        words = [stemmer.stem(word) for word in re.split('\W+',text)
+                                    if word not in stop_words]
+                        # combine remaining words in to string
+                        content = ' '.join(words)
+                        assert len(content.splitlines()) == 1
+                        data.append(str(label) +'<fff>' +
+                                filename + '<fff>' + content)
+            else:
+                for filename, filepath in files:
+                    with open(filepath,'r', errors = 'ignore') as f:
+                        text = f.read().lower()
+                        # remove stop words
+                        # \W+ stands for non-word characters 
+                        words = [stemmer.stem(word) for word in re.split('\W+',text)
+                                    if word not in stop_words]
+                        # combine remaining words in to string
+                        content = ' '.join(words)
+                        assert len(content.splitlines()) == 1
+                        data.append(str(label) +'<fff>' +
+                                filename + '<fff>' + content)
+
         return data
 
     stop_words = get_stop_words('en')
