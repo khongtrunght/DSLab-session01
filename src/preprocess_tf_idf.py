@@ -5,5 +5,5 @@ from compute_tf_idf import get_tf_idf
 
 dirname = os.path.dirname(__file__)
 gather_20newsgroups_data()
-generate_vocabulary(os.path.join(dirname,'../datasets/20news-bydate/20news-train-processed.txt',))
-get_tf_idf(os.path.join(dirname, '../datasets/20news-bydate/20news-test-processed.txt'))
+generate_vocabulary(os.path.join(dirname,'../datasets/20news-bydate/20news-full-processed.txt',))
+get_tf_idf(os.path.join(dirname, '../datasets/20news-bydate/20news-full-processed.txt'))
